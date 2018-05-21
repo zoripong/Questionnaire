@@ -9,7 +9,6 @@
 	File []fileList=dirFile.listFiles();
 	for(File tempFile : fileList) {	
 		out.println("<a href=\"questionnaire.jsp?QUESTION_NAME="+tempFile.getName()+"\">"+tempFile.getName()+"</a><br/>");
-		//<a href="questionnaire.jsp">설문하기</a>
 	}
 
 %>

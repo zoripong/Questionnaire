@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%
+	if(request.getParameter("isFail")!=null){
+		out.println("<script>alert('설문조사 폼 작성에 실패하셨습니다. 다시 시도해주세요.');</script>");
+	}
+%>
 	<jsp:forward page="template.jsp">
 		<jsp:param name="CONTENTPAGE" value="createProc.jsp" />
 	</jsp:forward>	
