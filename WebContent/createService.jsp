@@ -38,7 +38,7 @@
 			    if(key.toLowerCase().startsWith("question")) {
 			    	if(!key.contains(questionName)){
 			    		if(!isFirst)
-			    			bw.write("[end]\n"+(++index)+"\t");
+			    			bw.write("[end]\t"+(++index)+"\t");
 			    		else
 			    			bw.write(++index+"\t");
 			    		
@@ -58,7 +58,7 @@
 			    }
 				
 			}
-			bw.write("[end]\n");
+			bw.write("[end]\t");
 			
 			bw.flush();
 			bw.close();
