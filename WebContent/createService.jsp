@@ -11,9 +11,11 @@
 <%
 
 	request.setCharacterEncoding("UTF-8");
-
-	String title = request.getParameter("title_questionnaire");
-	String filePath = application.getRealPath("./data/form/"+title+"["+ System.currentTimeMillis()+"].txt");
+	
+	String fileName = request.getParameter("title_questionnaire")+"["+ System.currentTimeMillis()+"]";	
+	fileName = fileName.replace(" ", "");
+	String filePath = application.getRealPath("./data/form/"+fileName+".txt");
+	
 
 	System.out.println(filePath);
 	File file = new File(filePath);
@@ -33,6 +35,7 @@
 			String questionName = "-";
 			int index = 0;
 			
+			int questionType = -1;
 			
 			for(String key : parameters.keySet()) {
 			    if(key.toLowerCase().startsWith("question")) {
@@ -49,15 +52,29 @@
 				       
 					for(String value : values){
 						bw.write(value+"\t");
+						System.out.println(value + " / type : "+questionType);
+						
+						
+						if(questionType==0 || questionType==1){
+							if(key.contains("answer")){
+								bw.write("0\t");
+							}
+						}
 					}
 
 			    }else if(key.toLowerCase().startsWith("hd_")){
 			    	// 질문 타입
 			    	String[] values = parameters.get(key);
 			    	bw.write(values[0]+"\t");
+			    	questionType = Integer.parseInt(values[0]);
+			    	
+			    	if(questionType == 2){
+			    		bw.write(fileName+"_answer_"+index+".txt\t");
+			    	}
 			    }
 				
-			}
+			}		
+				
 			bw.write("[end]\t");
 			
 			bw.flush();

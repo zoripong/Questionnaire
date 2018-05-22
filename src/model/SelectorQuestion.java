@@ -1,41 +1,59 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SelectorQuestion extends Question {
-	private ArrayList<String> qSelector;
+	private ArrayList<String> qSelectorList;
+	private HashMap<String, Integer> qSelectorMap;
 
-	public SelectorQuestion(String qNo, String qTitle, String qType, ArrayList<String> qSelector) {
+	public SelectorQuestion(String qNo, String qTitle, String qType, ArrayList<String> qSelectorList,
+			HashMap<String, Integer> qSelectorMap) {
 		super(qNo, qTitle, qType);
-		this.qSelector = qSelector;
-	}
-
-	public ArrayList<String> getqSelector() {
-		return qSelector;
+		this.qSelectorList = qSelectorList;
+		this.qSelectorMap = qSelectorMap;
 	}
 	
-	private String convertListToHtml() {
-		StringBuffer sb = new StringBuffer();
-		
-		for(int i = 0; i<qSelector.size(); i++) {
-			
-		String type = "";
-		switch(getqType()) {
-			case QuestionType.RADIO:
-				type = "radio";
-				break;
-			case QuestionType.CHECKBOX:
-				type = "checkbox";
-				break;
-		}
-		
-		sb.append("<input type=\""+type+"\" name=\"question_answer_"+getqNo()+"\" id=\"choice_"+i+"\" value=\"choice_"+i+"\"/>");
-		sb.append("<label for=\"choice_"+i+"\">"+qSelector.get(i)+"</label><br/>");
-		
-		}
-		return sb.toString();
-		
+	public ArrayList<String> getqSelectorList() {
+		return qSelectorList;
 	}
+
+	public HashMap<String, Integer> getqSelectorMap() {
+		return qSelectorMap;
+	}
+	
+
+	
+	public void setqSelectorList(ArrayList<String> qSelectorList) {
+		this.qSelectorList = qSelectorList;
+	}
+
+	public void setqSelectorMap(HashMap<String, Integer> qSelectorMap) {
+		this.qSelectorMap = qSelectorMap;
+	}
+
+	
+	private String convertListToHtml() {
+		
+		StringBuffer sb = new StringBuffer();
+		for(int i = 0; i<qSelectorList.size(); i++) {
+			
+			switch(getqType()) {
+				case QuestionType.RADIO:
+					sb.append("<input type=\"radio\" name=\"question_answer_"+getqNo()+"\" id=\"choice_"+i+"\" value=\"choice_"+i+"\" required/>");
+					break;
+				case QuestionType.CHECKBOX:
+					sb.append("<input type=\"checkbox\" name=\"question_answer_"+getqNo()+"\" id=\"choice_"+i+"\" value=\"choice_"+i+"\"/>");
+					break;
+			}
+			
+			sb.append("<label for=\"choice_"+i+"\">"+qSelectorList.get(i)+"</label><br/>");
+			
+		}
+		
+		return sb.toString();
+	}
+	
 	
 	@Override
 	public String convertToHtml() {
@@ -64,5 +82,11 @@ public class SelectorQuestion extends Question {
 		sb.append("</section>");
 		
 		return sb.toString();
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "selector";
 	}
 }
