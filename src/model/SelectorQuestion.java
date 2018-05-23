@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 public class SelectorQuestion extends Question {
 	private ArrayList<String> qSelectorList;
@@ -33,7 +34,7 @@ public class SelectorQuestion extends Question {
 	}
 
 	
-	private String convertListToHtml() {
+	private String convertListToQuestionHtml() {
 		
 		StringBuffer sb = new StringBuffer();
 		for(int i = 0; i<qSelectorList.size(); i++) {
@@ -49,14 +50,23 @@ public class SelectorQuestion extends Question {
 			
 			sb.append("<label for=\"choice_"+i+"\">"+qSelectorList.get(i)+"</label><br/>");
 			
+			
 		}
 		
 		return sb.toString();
 	}
 	
-	
+	private String convertListToResultHtml() {
+		StringBuffer sb = new StringBuffer();
+		for(int i = 0; i<qSelectorList.size(); i++) {
+			sb.append("<p class=\"answer_selector\">"+qSelectorList.get(i)+"에 대해 "+ qSelectorMap.get("choice_"+i)+"번 선택되었습니다. ["+ (double)qSelectorMap.get("choice_"+i)/(double)getTotal() +"%]</p>");
+			System.out.println(((double)qSelectorMap.get("choice_"+i)/(double)getTotal()));
+		}
+		
+		return sb.toString();
+	}
 	@Override
-	public String convertToHtml() {
+	public String convertToQuestionHtml() {
 //		<section class="sc_answer">
 //		<p>1. 질문입니다.</p>
 //
@@ -78,15 +88,50 @@ public class SelectorQuestion extends Question {
 		
 		sb.append("<section class=\"sc_answer\">");
 		sb.append("<p>"+getqNo()+". "+getqTitle()+"</p>");
-		sb.append(convertListToHtml());
+		sb.append(convertListToQuestionHtml());
+		
 		sb.append("</section>");
+
+		sb.append("<hr class=\"separator\"/>");
 		
 		return sb.toString();
 	}
 	
+	public String convertToResultHtml() {
+		String str;
+		if(getqType() == QuestionType.CHECKBOX) {
+			str = "[체크박스]";
+		}else {
+			str = "[라디오]";
+		}
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("<section class=\"sc_answer\">");
+		sb.append("<p>"+getqNo()+". "+getqTitle()+" "+str+"</p>");
+		sb.append(convertListToResultHtml());
+		System.out.println("띠용?"+qSelectorMap.toString());
+		//		sb.append("<p class=\"ratio\">"+(double)(qSelectorMap.get("choice_"+(getqNo()-1))/getTotal())+"</p>");
+		sb.append("</section>");
+		
+		
+		return sb.toString();
+	
+	}
 	
 	@Override
 	public String toString() {
 		return "selector";
+	}
+	
+	private int getTotal() {
+		Set<String> keys = qSelectorMap.keySet();
+		
+		int total = 0;
+		for(String key : keys) {
+			System.out.println("key ?"+key);
+			total += qSelectorMap.get(key);
+		}
+		
+		return total;
 	}
 }

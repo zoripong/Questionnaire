@@ -24,7 +24,7 @@ abstract public class Question {
 		return qType;
 	}
 	
-	abstract public String convertToHtml();
+	abstract public String convertToQuestionHtml();
 
 	
 }

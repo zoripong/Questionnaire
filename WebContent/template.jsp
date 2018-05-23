@@ -4,6 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="include/css/template.css">
+<link rel="stylesheet" type="text/css" href="include/css/footer.css">
 <title>Insert title here</title>
 <%
 	String contentPage = request.getParameter("CONTENTPAGE");

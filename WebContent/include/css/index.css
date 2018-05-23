@@ -1,0 +1,29 @@
+#sc_questionnaire_list{
+	margin-left:10%;
+	width:80%;
+	height:75%;
+	margin-top:50px;
+}
+
+.questionnaire_item{
+	text-align : left;
+	background : #c6e0b4;	
+	padding:10px;
+	margin:0;
+}
+.questionnaire_item:nth-child(2n){
+	background : #ffffff;	
+}
+
+a{
+	color:black;
+	text-decoration:none;
+}
+
+a:visited{
+	font-style:italic;	
+}
+
+.questionnaire_item:hover{
+	background:#acacac;
+}

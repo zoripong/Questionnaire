@@ -11,11 +11,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<link rel="stylesheet" type="text/css" href="include/css/questionnaire.css">
 <script src="include/script/questionnaire.js"></script>
 
 
 <%-- 설문조사 폼 작성 --%>
-
+<section id="sc_form">
 <form action="questionnaireService.jsp" method="POST">
 <%
 	String fileName = request.getParameter("QUESTION_NAME");
@@ -81,38 +82,15 @@
 		session.setAttribute("questions", questions);
 		
 		
+		out.println("<hr class=\"separator\"/>");
 		for(int i = 0; i<questions.size(); i++){
-			out.println(questions.get(i).convertToHtml());
+			out.println(questions.get(i).convertToQuestionHtml());
 		}
 		
 %>
 
-
 	<!-- <input type="button" id="submit_btn" value="작성완료"/>-->
 	<input type="hidden" name="file_name" value="<%=fileName%>"/>
-	<input type="submit" value="작성완료"/>
+	<input id="btn_submit" type="submit" value="작성완료"/>
 </form>
-
-<!-- 
-	<section class="sc_answer">
-		<p>1. 질문입니다.</p>
-
-		<input type="radio" name="question_answer_1" id="choice_1" value="choice_1"/>
-		<label for="choice_01">선택지 1</label>  <br/>
-
-		<input type="radio" name="question_answer_2" id="choice_2" value="choice_2"/>
-		<label for="choice_02">선택지 2</label> <br/>
-		
-		<input type="radio" name="question_answer_3" id="choice_3" value="choice_3"/>
-		<label for="choice_03">선택지 3</label>   <br/>
-		
-		<input type="radio" name="question_answer_4" id="choice_4" value="choice_4"/>
-		<label for="choice_04">선택지 4</label>  
-	</section>
-	
-	<section class="sc_answer">
-		<p>1. 질문입니다.</p>
-		<input type="text" name="question_answer_1" class="answer_textbox" placeholder="답변을 적어주세요."/>
-	</section>
-
--->
+</section>

@@ -14,8 +14,11 @@
 	request.setCharacterEncoding("UTF-8");
 	String questionFileName = request.getParameter("file_name");
 	
+	try{
 		ArrayList<Question> questions = (ArrayList<Question>) session.getAttribute("questions");
+		
 		for(int i = 0; i<questions.size(); i++){
+			
 			int qType = questions.get(i).getqType();
 			if(qType == QuestionType.RADIO){
 				HashMap<String, Integer> map = ((SelectorQuestion)questions.get(i)).getqSelectorMap();
@@ -23,7 +26,9 @@
 				Integer value = map.get(key);
 				System.out.println("{Map : "+map.toString()+"}");
 				map.put(key, value+1);
+			
 			}else if(qType == QuestionType.CHECKBOX){
+				
 				HashMap<String, Integer> map = ((SelectorQuestion)questions.get(i)).getqSelectorMap();
 				System.out.println("{Map : "+map.toString()+"}");
 				
@@ -33,6 +38,7 @@
 					System.out.println("(key : value) = "+ key +":"+ value);
 					map.put(key, value+1);
 				}
+				
 			}else if(qType == QuestionType.TEXT){
 	
 				String fileName = ((TextQuestion)questions.get(i)).getAnswerFile();
@@ -57,12 +63,13 @@
 		String questionFilePath = application.getRealPath("./data/form/"+questionFileName);
 		BufferedWriter bw;
 		try{
+			
 			StringBuffer sb = new StringBuffer();
 			bw = new BufferedWriter(new FileWriter(questionFilePath));
+			
 			for(int i = 0; i<questions.size(); i++){
 				
 				sb.append(questions.get(i).getqNo()+"\t"+questions.get(i).getqTitle()+"\t"+questions.get(i).getqType()+"\t");
-				
 				if(questions.get(i).getqType() == QuestionType.TEXT){
 					TextQuestion question = (TextQuestion)questions.get(i);
 					sb.append(question.getAnswerFile()+"\t[end]\t");	
@@ -72,8 +79,7 @@
 					HashMap<String, Integer> map = question.getqSelectorMap();
 					
 					for(int j = 0; j<selector.size(); j++){
-						sb.append(selector.get(j)+"\t"+map.get("choice_"+j)+"\t");
-						
+						sb.append(selector.get(j)+"\t"+map.get("choice_"+j)+"\t");	
 					}
 					sb.append("[end]\t");
 				}
@@ -87,9 +93,15 @@
 		}catch(IOException e){
 			e.printStackTrace();
 		}
-		
+		System.out.println(questionFileName);
 		%>
-		<jsp:forward page="result.jsp?QUESTION_NAME=<%=questionFileName %>" />
+		
+
+<jsp:forward page="result.jsp">
+  <jsp:param name="QUESTION_NAME" value="<%=questionFileName %>"/>
+</jsp:forward>
+<%}catch(Exception e){%>
+<jsp:forward page="index.jsp?isFail=true" />
 <%
-	
-%>
+	}
+		%>
