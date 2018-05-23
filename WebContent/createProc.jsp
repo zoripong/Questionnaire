@@ -8,7 +8,7 @@
 <%-- 설문 제작 폼 --%>
 
 <form id="question_form" action="createService.jsp" method="POST">
-	<input type="text" name="title_questionnaire" placeholder="설문 제목"/>
+	<input type="text" name="title_questionnaire" placeholder="설문 제목" required/>
 	<input type="submit" value="저장" />
 </form>
 

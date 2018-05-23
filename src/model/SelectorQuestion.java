@@ -59,7 +59,7 @@ public class SelectorQuestion extends Question {
 	private String convertListToResultHtml() {
 		StringBuffer sb = new StringBuffer();
 		for(int i = 0; i<qSelectorList.size(); i++) {
-			sb.append("<p class=\"answer_selector\">"+qSelectorList.get(i)+"에 대해 "+ qSelectorMap.get("choice_"+i)+"번 선택되었습니다. ["+ (double)qSelectorMap.get("choice_"+i)/(double)getTotal() +"%]</p>");
+			sb.append("<p class=\"answer_selector\">"+qSelectorList.get(i)+"에 대해 "+ qSelectorMap.get("choice_"+i)+"번 선택되었습니다. ["+ (double)qSelectorMap.get("choice_"+i)/(double)getTotal() * 100.0 +"%]</p>");
 			System.out.println(((double)qSelectorMap.get("choice_"+i)/(double)getTotal()));
 		}
 		
