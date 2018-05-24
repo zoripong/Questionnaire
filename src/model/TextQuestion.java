@@ -38,7 +38,7 @@ public class TextQuestion extends Question{
 		StringBuffer sb = new StringBuffer();
 		sb.append("<section class=\"sc_answer\">");
 
-		sb.append("<p>"+getqNo()+". "+getqTitle()+" [주관식] </p>");
+		sb.append("<p class=\"question_title\">"+getqNo()+". "+getqTitle()+" [주관식] </p>");
 		sb.append("<details>");
 		sb.append("<summary>답변 보기.</summary>");
 		

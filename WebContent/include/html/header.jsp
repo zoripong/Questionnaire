@@ -6,3 +6,4 @@
 	<a href="create.jsp"><img alt="" src="include/images/ic_add_questionnaire.svg" class="icon" id="ic_create"/></a> 
 </section>
 
+<hr>

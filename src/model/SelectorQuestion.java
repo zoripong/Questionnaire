@@ -56,15 +56,7 @@ public class SelectorQuestion extends Question {
 		return sb.toString();
 	}
 	
-	private String convertListToResultHtml() {
-		StringBuffer sb = new StringBuffer();
-		for(int i = 0; i<qSelectorList.size(); i++) {
-			sb.append("<p class=\"answer_selector\">"+qSelectorList.get(i)+"에 대해 "+ qSelectorMap.get("choice_"+i)+"번 선택되었습니다. ["+ (double)qSelectorMap.get("choice_"+i)/(double)getTotal() * 100.0 +"%]</p>");
-			System.out.println(((double)qSelectorMap.get("choice_"+i)/(double)getTotal()));
-		}
-		
-		return sb.toString();
-	}
+	
 	@Override
 	public String convertToQuestionHtml() {
 //		<section class="sc_answer">
@@ -97,6 +89,17 @@ public class SelectorQuestion extends Question {
 		return sb.toString();
 	}
 	
+	
+	private String convertListToResultHtml() {
+		StringBuffer sb = new StringBuffer();
+		for(int i = 0; i<qSelectorList.size(); i++) {
+			sb.append("<p class=\"answer_selector\">"+qSelectorList.get(i)+"에 대해 "+ qSelectorMap.get("choice_"+i)+"번 선택되었습니다. ["+ (double)qSelectorMap.get("choice_"+i)/(double)getTotal() * 100.0 +"%]</p>");
+			System.out.println(((double)qSelectorMap.get("choice_"+i)/(double)getTotal()));
+		}
+		
+		return sb.toString();
+	} 
+	
 	public String convertToResultHtml() {
 		String str;
 		if(getqType() == QuestionType.CHECKBOX) {
@@ -107,7 +110,7 @@ public class SelectorQuestion extends Question {
 		
 		StringBuffer sb = new StringBuffer();
 		sb.append("<section class=\"sc_answer\">");
-		sb.append("<p>"+getqNo()+". "+getqTitle()+" "+str+"</p>");
+		sb.append("<p class=\"question_title\">"+getqNo()+". "+getqTitle()+" "+str+"</p>");
 		sb.append(convertListToResultHtml());
 		System.out.println("띠용?"+qSelectorMap.toString());
 		//		sb.append("<p class=\"ratio\">"+(double)(qSelectorMap.get("choice_"+(getqNo()-1))/getTotal())+"</p>");
