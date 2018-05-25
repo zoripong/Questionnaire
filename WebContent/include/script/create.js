@@ -19,9 +19,9 @@ function addSelection(selectIndex, isRadio){
 	
 	var code ="";
 	if(isRadio){
-		code+="<input type=\"radio\" />";
+		code+="<input type=\"radio\"  class=\"check\"/>";
 	}else{		
-		code+="<input type=\"checkbox\" />";
+		code+="<input type=\"checkbox\"  class=\"check\"/>";
 	}
 	code+="<input type=\"text\" name=\"question_"+selectIndex+"_answer_"+selectionIndex[selectIndex]+"\" class=\"question_answer\" placeholder=\"선택지를 작성해주세요.\"><br/>";
 	
